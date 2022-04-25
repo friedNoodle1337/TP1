@@ -1,4 +1,3 @@
-#include <limits>
 #include <stdexcept>
 #include <cmath>
 
@@ -27,7 +26,6 @@ namespace savranenko
     rect_.height_ = height;
     rect_.pos_.x_ = posX;
     rect_.pos_.y_ = posY;
-
   }
 
   double Rectangle::getArea() const
