@@ -144,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base-types.hpp" />
+    <ClInclude Include="diamond.hpp" />
     <ClInclude Include="rectangle.hpp" />
     <ClInclude Include="shape.hpp" />
   </ItemGroup>
