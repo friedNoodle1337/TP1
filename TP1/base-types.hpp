@@ -3,15 +3,15 @@
 
 struct point_t
 {
-  double x_;
-  double y_;
+    double m_X;
+    double m_Y;
 };
 
 struct rectangle_t
 {
-  double width_;
-  double height_;
-  point_t pos_;
+    double m_Width;
+    double m_Height;
+    point_t m_Pos;
 };
 
 #endif

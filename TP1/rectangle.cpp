@@ -1,64 +1,46 @@
 #include <limits>
 #include <stdexcept>
-#include <cmath>
+#include "Rectangle.h"
 
-#include "rectangle.hpp"
-
-namespace savranenko
+namespace bavykin
 {
-  Rectangle::Rectangle(point_t leftCorner, point_t rightCorner)
-  {
-    if (rect_.width_ <= std::numeric_limits< double >::epsilon())
+    Rectangle::Rectangle(point_t leftCorner, point_t rightCorner)
     {
-      throw std::range_error("INVALID WIDTH");
+        double width = rightCorner.m_X - leftCorner.m_X;
+        double height = rightCorner.m_Y - leftCorner.m_Y;
+        double posX = (rightCorner.m_X - leftCorner.m_X) / 2;
+        double posY = (rightCorner.m_Y - leftCorner.m_Y) / 2;
+
+        m_Rect.m_Width = width;
+        m_Rect.m_Height = height;
+        m_Rect.m_Pos.m_X = posX;
+        m_Rect.m_Pos.m_Y = posY;
     }
 
-    if (rect_.height_ <= std::numeric_limits< double >::epsilon())
+    double Rectangle::getArea() const
     {
-      throw std::range_error("INVALID HEIGHT");
+        return m_Rect.m_Width * m_Rect.m_Height;
     }
 
-    double width = rightCorner.x_ - leftCorner.x_;
-    double height = rightCorner.y_ - leftCorner.y_;
-    double posX = (rightCorner.x_ - leftCorner.x_) / 2;
-    double posY = (rightCorner.y_ - leftCorner.y_) / 2;
-
-    rect_.width_ = width;
-    rect_.height_ = height;
-    rect_.pos_.x_ = posX;
-    rect_.pos_.y_ = posY;
-
-  }
-
-  double Rectangle::getArea() const
-  {
-    return rect_.width_ * rect_.height_;
-  }
-
-  rectangle_t Rectangle::getFrameRect() const
-  {
-    return rect_;
-  }
-
-  void Rectangle::move(const point_t newCentre)
-  {
-    rect_.pos_ = newCentre;
-  }
-
-  void Rectangle::move(double newX, double newY)
-  {
-    rect_.pos_.x_ += newX;
-    rect_.pos_.y_ += newY;
-  }
-
-  void Rectangle::scale(const point_t centre, double scale)
-  {
-    if (scale <= std::numeric_limits< double >::epsilon())
+    rectangle_t Rectangle::getFrameRect() const
     {
-      throw std::range_error("INVALID SCALE");
+        return m_Rect;
     }
 
-    rect_.width_ *= std::abs(scale);
-    rect_.height_ *= std::abs(scale);
-  }
+    void Rectangle::move(point_t centre)
+    {
+        m_Rect.m_Pos = centre;
+    }
+
+    void Rectangle::move(double x, double y)
+    {
+        m_Rect.m_Pos.m_X += x;
+        m_Rect.m_Pos.m_Y += y;
+    }
+
+    void Rectangle::scale(point_t centre, double scale)
+    {
+        m_Rect.m_Width *= scale;
+        m_Rect.m_Height *= scale;
+    }
 }
