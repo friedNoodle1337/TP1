@@ -7,9 +7,9 @@ namespace bavykin
     Rectangle::Rectangle(point_t leftCorner, point_t rightCorner)
     {
         double width = rightCorner.m_X - leftCorner.m_X;
-        double height = rightCorner.m_Y - leftCorner.m_Y;
+        double height = leftCorner.m_Y - rightCorner.m_Y;
         double posX = (rightCorner.m_X - leftCorner.m_X) / 2;
-        double posY = (rightCorner.m_Y - leftCorner.m_Y) / 2;
+        double posY = (leftCorner.m_Y - rightCorner.m_Y) / 2;
 
         m_Rect.m_Width = width;
         m_Rect.m_Height = height;
