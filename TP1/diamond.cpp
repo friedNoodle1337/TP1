@@ -74,5 +74,6 @@ namespace savranenko
 
     rect_.width_ *= scale;
     rect_.height_ *= scale;
+    move(centre);
   }
 }
