@@ -16,7 +16,7 @@ namespace bavykin
 
     double Square::getArea() const
     {
-        return m_Rect.m_Width * m_Rect.m_Height;
+        return m_Rect.m_Width * 2;
     }
 
     rectangle_t Square::getFrameRect() const
