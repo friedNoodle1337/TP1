@@ -7,7 +7,7 @@ namespace bavykin
     class Square : public Shape
     {
     public:
-        Square(point_t leftCorner, point_t rightCorner);
+        Square(point_t leftCorner, double sideLength);
 
         double getArea() const override;
         rectangle_t getFrameRect() const override;
