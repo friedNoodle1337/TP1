@@ -8,20 +8,20 @@ namespace savranenko
 {
   Rectangle::Rectangle(point_t leftCorner, point_t rightCorner)
   {
-    if (rect_.width_ <= std::numeric_limits< double >::epsilon())
-    {
-      throw std::range_error("INVALID WIDTH");
-    }
-
-    if (rect_.height_ <= std::numeric_limits< double >::epsilon())
-    {
-      throw std::range_error("INVALID HEIGHT");
-    }
-
     double width = rightCorner.x_ - leftCorner.x_;
     double height = rightCorner.y_ - leftCorner.y_;
     double posX = (rightCorner.x_ - leftCorner.x_) / 2;
     double posY = (rightCorner.y_ - leftCorner.y_) / 2;
+
+    if (width <= 0.0)
+    {
+      throw std::range_error("INVALID WIDTH");
+    }
+
+    if (height <= 0.0)
+    {
+      throw std::range_error("INVALID HEIGHT");
+    }
 
     rect_.width_ = width;
     rect_.height_ = height;
@@ -53,7 +53,7 @@ namespace savranenko
 
   void Rectangle::scale(const point_t centre, double scale)
   {
-    if (scale <= std::numeric_limits< double >::epsilon())
+    if (scale <= 0.0)
     {
       throw std::range_error("INVALID SCALE");
     }
