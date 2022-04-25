@@ -1,11 +1,10 @@
 #include <stdexcept>
-#include <cmath>
 
 #include "diamond.hpp"
 
 namespace savranenko
 {
-  Diamond::Diamond(point_t centrePoint, point_t upperPoint, point_t sidePoint)
+  Diamond::Diamond(const point_t centrePoint, const point_t upperPoint, const point_t sidePoint)
   {
     double width = 0.0;
     double height = 0.0;
@@ -60,20 +59,20 @@ namespace savranenko
     rect_.pos_ = newCentre;
   }
 
-  void Diamond::move(double newX, double newY)
+  void Diamond::move(const double newX, const double newY)
   {
     rect_.pos_.x_ += newX;
     rect_.pos_.y_ += newY;
   }
 
-  void Diamond::scale(const point_t centre, double scale)
+  void Diamond::scale(const point_t centre, const double scale)
   {
     if (scale <= 0.0)
     {
       throw std::range_error("INVALID SCALE");
     }
 
-    rect_.width_ *= std::abs(scale);
-    rect_.height_ *= std::abs(scale);
+    rect_.width_ *= scale;
+    rect_.height_ *= scale;
   }
 }

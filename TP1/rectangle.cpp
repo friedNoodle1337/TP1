@@ -1,11 +1,10 @@
 #include <stdexcept>
-#include <cmath>
 
 #include "rectangle.hpp"
 
 namespace savranenko
 {
-  Rectangle::Rectangle(point_t leftCorner, point_t rightCorner)
+  Rectangle::Rectangle(const point_t leftCorner, const point_t rightCorner)
   {
     double width = rightCorner.x_ - leftCorner.x_;
     double height = rightCorner.y_ - leftCorner.y_;
@@ -43,20 +42,20 @@ namespace savranenko
     rect_.pos_ = newCentre;
   }
 
-  void Rectangle::move(double newX, double newY)
+  void Rectangle::move(const double newX, const double newY)
   {
     rect_.pos_.x_ += newX;
     rect_.pos_.y_ += newY;
   }
 
-  void Rectangle::scale(const point_t centre, double scale)
+  void Rectangle::scale(const point_t centre, const double scale)
   {
     if (scale <= 0.0)
     {
       throw std::range_error("INVALID SCALE");
     }
 
-    rect_.width_ *= std::abs(scale);
-    rect_.height_ *= std::abs(scale);
+    rect_.width_ *= scale;
+    rect_.height_ *= scale;
   }
 }
