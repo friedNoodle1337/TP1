@@ -41,5 +41,7 @@ namespace bavykin
     {
         m_Rect.m_Width *= scale;
         m_Rect.m_Height *= scale;
+
+        move(centre);
     }
 }
