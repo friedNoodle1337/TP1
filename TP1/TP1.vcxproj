@@ -141,6 +141,8 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="Regular.cpp" />
+    <ClCompile Include="Square.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base-types.hpp" />

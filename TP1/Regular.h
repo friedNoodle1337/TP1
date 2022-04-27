@@ -7,7 +7,7 @@ namespace bavykin
     class Regular : public Shape
     {
     public:
-        Regular(point_t leftCorner, point_t rightCorner);
+        Regular(point_t firstPoint, point_t secondPoint, point_t thirdPoint);
 
         double getArea() const override;
         rectangle_t getFrameRect() const override;
@@ -16,7 +16,13 @@ namespace bavykin
         void scale(const point_t centre, double scale) override;
 
     private:
+        double m_CathetOppositeTheCenter;
+        double m_BigRadius;
+        double m_SmallRadius;
         rectangle_t m_Rect;
+
+        void calculateFrameRect();
+        int getTheNumberOfCorners() const;
     };
 }
 
