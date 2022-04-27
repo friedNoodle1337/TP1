@@ -1,4 +1,3 @@
-#include <limits>
 #include <stdexcept>
 #include "Square.h"
 
@@ -16,7 +15,7 @@ namespace bavykin
 
     double Square::getArea() const
     {
-        return m_Rect.m_Width * 2;
+        return m_Rect.m_Width * m_Rect.m_Height;
     }
 
     rectangle_t Square::getFrameRect() const
