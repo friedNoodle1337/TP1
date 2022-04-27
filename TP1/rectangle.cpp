@@ -1,4 +1,3 @@
-#include <limits>
 #include <stdexcept>
 #include "Rectangle.h"
 
@@ -6,10 +5,10 @@ namespace bavykin
 {
     Rectangle::Rectangle(point_t leftCorner, point_t rightCorner)
     {
-        double width = rightCorner.m_X - leftCorner.m_X;
-        double height = leftCorner.m_Y - rightCorner.m_Y;
-        double posX = (rightCorner.m_X - leftCorner.m_X) / 2;
-        double posY = (leftCorner.m_Y - rightCorner.m_Y) / 2;
+        double width = std::abs(rightCorner.m_X - leftCorner.m_X);
+        double height = std::abs(leftCorner.m_Y - rightCorner.m_Y);
+        double posX = std::abs(rightCorner.m_X - leftCorner.m_X) / 2;
+        double posY = std::abs(leftCorner.m_Y - rightCorner.m_Y) / 2;
 
         m_Rect.m_Width = width;
         m_Rect.m_Height = height;
