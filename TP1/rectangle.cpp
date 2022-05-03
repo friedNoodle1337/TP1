@@ -4,27 +4,21 @@
 
 namespace savranenko
 {
-  Rectangle::Rectangle(const point_t leftCorner, const point_t rightCorner)
+  Rectangle::Rectangle(const point_t& leftCorner, const point_t& rightCorner)
   {
-    double width = rightCorner.x_ - leftCorner.x_;
-    double height = rightCorner.y_ - leftCorner.y_;
-    double posX = (rightCorner.x_ - leftCorner.x_) / 2;
-    double posY = (rightCorner.y_ - leftCorner.y_) / 2;
-
-    if (width <= 0.0)
+    if (leftCorner.x_ >= rightCorner.x_)
     {
-      throw std::range_error("INVALID WIDTH");
+      throw std::logic_error("BAD POINTS");
+    }
+    if (leftCorner.y_ >= rightCorner.y_)
+    {
+      throw std::logic_error("BAD POINTS");
     }
 
-    if (height <= 0.0)
-    {
-      throw std::range_error("INVALID HEIGHT");
-    }
-
-    rect_.width_ = width;
-    rect_.height_ = height;
-    rect_.pos_.x_ = posX;
-    rect_.pos_.y_ = posY;
+    rect_.width_ = rightCorner.x_ - leftCorner.x_;
+    rect_.height_ = rightCorner.y_ - leftCorner.y_;
+    rect_.pos_.x_ = rect_.width_ / 2;
+    rect_.pos_.y_ = rect_.height_ / 2;
   }
 
   double Rectangle::getArea() const
@@ -37,18 +31,18 @@ namespace savranenko
     return rect_;
   }
 
-  void Rectangle::move(const point_t newCentre)
+  void Rectangle::move(const point_t& newCentre)
   {
     rect_.pos_ = newCentre;
   }
 
-  void Rectangle::move(const double newX, const double newY)
+  void Rectangle::move(const double& newX, const double& newY)
   {
     rect_.pos_.x_ += newX;
     rect_.pos_.y_ += newY;
   }
 
-  void Rectangle::scale(const point_t centre, const double scale)
+  void Rectangle::scale(const point_t& centre, const double& scale)
   {
     if (scale <= 0.0)
     {
@@ -57,6 +51,6 @@ namespace savranenko
 
     rect_.width_ *= scale;
     rect_.height_ *= scale;
-    move(centre);
+    move({centre.x_ - (centre.x_ - rect_.pos_.x_) * scale, centre.y_ - (centre.y_ - rect_.pos_.y_) * scale});
   }
 }
