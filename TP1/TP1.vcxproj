@@ -150,6 +150,7 @@
     <ClInclude Include="rectangle.hpp" />
     <ClInclude Include="shape.hpp" />
     <ClInclude Include="square.hpp" />
+    <ClInclude Include="utils.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

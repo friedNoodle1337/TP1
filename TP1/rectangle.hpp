@@ -14,7 +14,7 @@ namespace savranenko
     rectangle_t getFrameRect() const override;
     void move(const point_t& newCentre) override;
     void move(const double& newX, const double& newY) override;
-    void scale(const point_t& centre, const double& scale) override;
+    void scale(const double& scale) override;
 
   private:
     rectangle_t rect_;

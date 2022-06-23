@@ -1,17 +1,20 @@
 #ifndef BASE_TYPES_HPP
 #define BASE_TYPES_HPP
 
-struct point_t
+namespace savranenko
 {
-  double x_;
-  double y_;
-};
+  struct point_t
+  {
+    double x_;
+    double y_;
+  };
 
-struct rectangle_t
-{
-  double width_;
-  double height_;
-  point_t pos_;
-};
+  struct rectangle_t
+  {
+    double width_;
+    double height_;
+    point_t pos_;
+  };
+}
 
 #endif

@@ -38,15 +38,9 @@ namespace savranenko
     rect_.pos_.y_ += newY;
   }
 
-  void Square::scale(const point_t& centre, const double& scale)
+  void Square::scale(const double& scale)
   {
-    if (scale <= 0.0)
-    {
-      throw std::range_error("INVALID SCALE");
-    }
-
     rect_.width_ *= scale;
     rect_.height_ *= scale;
-    move({centre.x_ - (centre.x_ - rect_.pos_.x_) * scale, centre.y_ - (centre.y_ - rect_.pos_.y_) * scale});
   }
 }

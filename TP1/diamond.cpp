@@ -19,29 +19,14 @@ namespace savranenko
 
     if (FirstAndSecondLinedUpX)
     {
-      if (firstPoint.y_ == secondPoint.y_)
-      {
-        throw std::logic_error("BAD POINTS");
-      }
-
       if (FirstAndThirdLinedUpY)
       {
-        if (firstPoint.x_ == thirdPoint.x_)
-        {
-          throw std::logic_error("BAD POINTS");
-        }
-
         centrePoint = firstPoint;
         upperPoint = secondPoint;
         sidePoint = thirdPoint;
       }
       else if (SecondAndThirdLinedUpY)
       {
-        if (secondPoint.x_ == thirdPoint.x_)
-        {
-          throw std::logic_error("BAD POINTS");
-        }
-
         centrePoint = secondPoint;
         upperPoint = firstPoint;
         sidePoint = thirdPoint;
@@ -53,29 +38,14 @@ namespace savranenko
     }
     else if (FirstAndThirdLinedUpX)
     {
-      if (firstPoint.y_ == thirdPoint.y_)
-      {
-        throw std::logic_error("BAD POINTS");
-      }
-
       if (FirstAndSecondLinedUpY)
       {
-        if (firstPoint.x_ == secondPoint.x_)
-        {
-          throw std::logic_error("BAD POINTS");
-        }
-
         centrePoint = firstPoint;
         upperPoint = thirdPoint;
         sidePoint = secondPoint;
       }
       else if (SecondAndThirdLinedUpY)
       {
-        if (secondPoint.x_ == thirdPoint.x_)
-        {
-          throw std::logic_error("BAD POINTS");
-        }
-
         centrePoint = thirdPoint;
         upperPoint = firstPoint;
         sidePoint = secondPoint;
@@ -87,29 +57,14 @@ namespace savranenko
     }
     else if (SecondAndThirdLinedUpX)
     {
-      if (secondPoint.y_ == thirdPoint.y_)
-      {
-        throw std::logic_error("BAD POINTS");
-      }
-
       if (FirstAndSecondLinedUpY)
       {
-        if (firstPoint.x_ == secondPoint.x_)
-        {
-          throw std::logic_error("BAD POINTS");
-        }
-
         centrePoint = secondPoint;
         upperPoint = thirdPoint;
         sidePoint = firstPoint;
       }
       else if (FirstAndThirdLinedUpY)
       {
-        if (firstPoint.x_ == thirdPoint.x_)
-        {
-          throw std::logic_error("BAD POINTS");
-        }
-
         centrePoint = thirdPoint;
         upperPoint = secondPoint;
         sidePoint = firstPoint;
@@ -151,15 +106,9 @@ namespace savranenko
     rect_.pos_.y_ += newY;
   }
 
-  void Diamond::scale(const point_t& centre, const double& scale)
+  void Diamond::scale(const double& scale)
   {
-    if (scale <= 0.0)
-    {
-      throw std::range_error("INVALID SCALE");
-    }
-
     rect_.width_ *= scale;
     rect_.height_ *= scale;
-    move({centre.x_ - (centre.x_ - rect_.pos_.x_) * scale, centre.y_ - (centre.y_ - rect_.pos_.y_) * scale});
   }
 }
