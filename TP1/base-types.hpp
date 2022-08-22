@@ -5,14 +5,12 @@ namespace savranenko
 {
   struct point_t
   {
-    double x_;
-    double y_;
+    double x_, y_;
   };
 
   struct rectangle_t
   {
-    double width_;
-    double height_;
+    double width_, height_;
     point_t pos_;
   };
 }

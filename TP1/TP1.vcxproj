@@ -142,7 +142,9 @@
     <ClCompile Include="diamond.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="rectangle.cpp" />
+    <ClCompile Include="shape.cpp" />
     <ClCompile Include="square.cpp" />
+    <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base-types.hpp" />

@@ -1,15 +1,12 @@
-#include <stdexcept>
-#include <cmath>
-
 #include "diamond.hpp"
+
+#include <stdexcept>
 
 namespace savranenko
 {
   Diamond::Diamond(const point_t& firstPoint, const point_t& secondPoint, const point_t& thirdPoint)
   {
-    point_t centrePoint;
-    point_t upperPoint;
-    point_t sidePoint;
+    point_t centrePoint, upperPoint, sidePoint;
     bool FirstAndSecondLinedUpX = firstPoint.x_ == secondPoint.x_;
     bool FirstAndThirdLinedUpX = firstPoint.x_ == thirdPoint.x_;
     bool SecondAndThirdLinedUpX = secondPoint.x_ == thirdPoint.x_;
@@ -100,13 +97,13 @@ namespace savranenko
     rect_.pos_ = newCentre;
   }
 
-  void Diamond::move(const double& newX, const double& newY)
+  void Diamond::move(double newX, double newY)
   {
     rect_.pos_.x_ += newX;
     rect_.pos_.y_ += newY;
   }
 
-  void Diamond::scale(const double& scale)
+  void Diamond::doScale(double scale)
   {
     rect_.width_ *= scale;
     rect_.height_ *= scale;

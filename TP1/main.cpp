@@ -1,6 +1,5 @@
 ﻿#include <iostream>
 #include <iomanip>
-#include <string>
 
 #include "utils.hpp"
 #include "rectangle.hpp"
@@ -9,91 +8,40 @@
 
 using namespace savranenko;
 
-void enterPoints(Array< double >& doubles, int&& nDoubles)
-{
-  std::string stringOfDoubles;
-  std::getline(std::cin, stringOfDoubles, '\n');
-  int start = 1;
-  int end = 0;
-  for (int i = 0; i < nDoubles; i++)
-  {
-    end = stringOfDoubles.find(' ', start);
-    if (start != 0 && end != 0)
-    {
-      doubles.add(std::strtod(stringOfDoubles.substr(start, end).c_str(), nullptr));
-      start = end + 1;
-    }
-    else
-    {
-      throw std::range_error("NOT ENOUGH POINTS");
-    }
-  }
-}
-
-void printShapes(const Array< std::shared_ptr< Shape > >& shapes)
-{
-  double sumArea = 0;
-  for (std::size_t i = 0; i < shapes.getSize(); i++)
-  {
-    sumArea += shapes[i]->getArea();
-  }
-  std::cout << sumArea;
-
-  rectangle_t frame;
-  point_t leftCorner;
-  point_t rightCorner;
-  for (std::size_t i = 0; i < shapes.getSize(); i++)
-  {
-    frame = shapes[i]->getFrameRect();
-    leftCorner = {frame.pos_.x_ - frame.width_ / 2, frame.pos_.y_ - frame.height_ / 2};
-    rightCorner = {frame.pos_.x_ + frame.width_ / 2, frame.pos_.y_ + frame.height_ / 2};
-    std::cout << ' ' << leftCorner.x_ << ' ' << leftCorner.y_;
-    std::cout << ' ' << rightCorner.x_ << ' ' << rightCorner.y_;
-    if (i == shapes.getSize() - 1)
-    {
-      std::cout << "\n";
-    }
-  }
-}
-
-void scaleShapes(const std::shared_ptr< Shape >& shape, double coef, double pointX, double pointY)
-{
-  shape->scale(coef);
-  rectangle_t frame = shape->getFrameRect();
-  shape->move({pointX - (pointX - frame.pos_.x_) * coef, pointY - (pointY - frame.pos_.y_) * coef});
-}
-
 int main()
 {
   std::cout << std::fixed << std::setprecision(1);
 
   std::string str;
-  Array< std::shared_ptr < Shape > > shapes;
+  std::shared_ptr< double[] > doubles;
+  shapeArr_t shapes;
+  std::size_t shapesCount = 0;
   bool scaleCheck = false;
+  bool correctnessCheck = true;
   while (std::cin >> str)
   {
     try
     {
       if (str == "RECTANGLE")
       {
-        Array< double > doubles;
-        enterPoints(doubles, 4);
-        shapes.add(std::shared_ptr< Shape >(
-          new Rectangle({doubles[0], doubles[1]}, {doubles[2], doubles[3]})));
+        doubles = enterPoints(4);
+        point_t leftCorner = { doubles[0], doubles[1] };
+        point_t rightCorner = { doubles[2], doubles[3] };
+        addShape(shapes, shapePtr_t(new Rectangle(leftCorner, rightCorner)), shapesCount++);
       }
       else if (str == "SQUARE")
       {
-        Array< double > doubles;
-        enterPoints(doubles, 3);
-        shapes.add(std::shared_ptr< Shape >(
-          new Square({doubles[0], doubles[1]}, doubles[2])));
+        doubles = enterPoints(3);
+        point_t leftCorner = { doubles[0], doubles[1] };
+        addShape(shapes, shapePtr_t(new Square(leftCorner, doubles[2])), shapesCount++);
       }
       else if (str == "DIAMOND")
       {
-        Array< double > doubles;
-        enterPoints(doubles, 6);
-        shapes.add(std::shared_ptr< Shape >(
-          new Diamond({doubles[0], doubles[1]}, {doubles[2], doubles[3]}, {doubles[4], doubles[5]})));
+        doubles = enterPoints(6);
+        point_t firstPoint = { doubles[0], doubles[1] };
+        point_t secondPoint = { doubles[2], doubles[3] };
+        point_t thirdPoint = { doubles[4], doubles[5] };
+        addShape(shapes, shapePtr_t(new Diamond(firstPoint, secondPoint, thirdPoint)), shapesCount++);
       }
       else if (str == "SCALE")
       {
@@ -105,34 +53,43 @@ int main()
         if (coef <= 0.0)
         {
           std::cerr << "INVALID SCALE" << "\n";
-          return -3;
+          return 1;
         }
-        if (!std::cin || !shapes.getSize())
+        if (!std::cin || shapesCount == 0)
         {
           std::cerr << "SCALE ERROR" << "\n";
-          return -1;
+          return 1;
         }
         else
         {
-          printShapes(shapes);
-          for (std::size_t i = 0; i < shapes.getSize(); i++)
+          printShapes(shapes, shapesCount);
+          for (std::size_t i = 0; i < shapesCount; i++)
           {
             scaleShapes(shapes[i], coef, pointX, pointY);
           }
-          printShapes(shapes);
+          printShapes(shapes, shapesCount);
         }
         break;
       }
     }
     catch (const std::exception& exception)
     {
-      std::cerr << exception.what() << "\n";
+      std::string temp = exception.what();
+      std::cerr << temp << "\n";
+      if (temp == "INVALID SIDE")
+      {
+        correctnessCheck = false;
+      }
     }
   }
   if (scaleCheck == false)
   {
     std::cerr << "THERE IS NOT SCALE" << "\n";
-    return -2;
+    return 1;
+  }
+  if (correctnessCheck == false)
+  {
+    return 1;
   }
 
   return 0;

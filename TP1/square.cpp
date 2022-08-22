@@ -1,6 +1,6 @@
-#include <stdexcept>
-
 #include "square.hpp"
+
+#include <stdexcept>
 
 namespace savranenko
 {
@@ -32,13 +32,13 @@ namespace savranenko
     rect_.pos_ = newCentre;
   }
 
-  void Square::move(const double& newX, const double& newY)
+  void Square::move(double newX, double newY)
   {
     rect_.pos_.x_ += newX;
     rect_.pos_.y_ += newY;
   }
 
-  void Square::scale(const double& scale)
+  void Square::doScale(double scale)
   {
     rect_.width_ *= scale;
     rect_.height_ *= scale;

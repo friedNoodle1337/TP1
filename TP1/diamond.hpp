@@ -13,10 +13,10 @@ namespace savranenko
     double getArea() const override;
     rectangle_t getFrameRect() const override;
     void move(const point_t& newCentre) override;
-    void move(const double& newX, const double& newY) override;
-    void scale(const double& scale) override;
+    void move(double newX, double newY) override;
 
   private:
+    void doScale(double scale) override;
     rectangle_t rect_;
   };
 }
