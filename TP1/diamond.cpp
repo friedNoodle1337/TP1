@@ -1,85 +1,34 @@
 #include "diamond.hpp"
 
+#include <cmath>
 #include <stdexcept>
 
 namespace savranenko
 {
-  Diamond::Diamond(const point_t& firstPoint, const point_t& secondPoint, const point_t& thirdPoint)
+  Diamond::Diamond(const point_t& pointA, const point_t& pointB, const point_t& pointC)
   {
-    point_t centrePoint, upperPoint, sidePoint;
-    bool FirstAndSecondLinedUpX = firstPoint.x_ == secondPoint.x_;
-    bool FirstAndThirdLinedUpX = firstPoint.x_ == thirdPoint.x_;
-    bool SecondAndThirdLinedUpX = secondPoint.x_ == thirdPoint.x_;
-    bool FirstAndSecondLinedUpY = firstPoint.y_ == secondPoint.y_;
-    bool FirstAndThirdLinedUpY = firstPoint.y_ == thirdPoint.y_;
-    bool SecondAndThirdLinedUpY = secondPoint.y_ == thirdPoint.y_;
-
-    if (FirstAndSecondLinedUpX)
+    if ((pointA.x_ == pointB.x_ && pointA.y_ == pointC.y_) || (pointA.x_ == pointC.x_ && pointA.y_ == pointB.y_))
     {
-      if (FirstAndThirdLinedUpY)
-      {
-        centrePoint = firstPoint;
-        upperPoint = secondPoint;
-        sidePoint = thirdPoint;
-      }
-      else if (SecondAndThirdLinedUpY)
-      {
-        centrePoint = secondPoint;
-        upperPoint = firstPoint;
-        sidePoint = thirdPoint;
-      }
-      else
-      {
-        throw std::logic_error("BAD POINTS");
-      }
+      rect_.pos_ = pointA;
+      rect_.width_ = std::fmax(std::abs(pointB.x_ - pointA.x_) * 2, std::abs(pointC.x_ - pointA.x_) * 2);
+      rect_.height_ = std::fmax(std::abs(pointB.y_ - pointA.y_) * 2, std::abs(pointC.y_ - pointA.y_) * 2);
     }
-    else if (FirstAndThirdLinedUpX)
+    else if ((pointA.x_ == pointB.x_ && pointB.y_ == pointC.y_) || (pointB.x_ == pointC.x_ && pointA.y_ == pointB.y_))
     {
-      if (FirstAndSecondLinedUpY)
-      {
-        centrePoint = firstPoint;
-        upperPoint = thirdPoint;
-        sidePoint = secondPoint;
-      }
-      else if (SecondAndThirdLinedUpY)
-      {
-        centrePoint = thirdPoint;
-        upperPoint = firstPoint;
-        sidePoint = secondPoint;
-      }
-      else
-      {
-        throw std::logic_error("BAD POINTS");
-      }
+      rect_.pos_ = pointB;
+      rect_.width_ = std::fmax(std::abs(pointA.x_ - pointB.x_) * 2, std::abs(pointC.x_ - pointB.x_) * 2);
+      rect_.height_ = std::fmax(std::abs(pointA.y_ - pointB.y_) * 2, std::abs(pointC.y_ - pointB.y_) * 2);
     }
-    else if (SecondAndThirdLinedUpX)
+    else if ((pointA.x_ == pointC.x_ && pointB.y_ == pointC.y_) || (pointB.x_ == pointC.x_ && pointA.y_ == pointC.y_))
     {
-      if (FirstAndSecondLinedUpY)
-      {
-        centrePoint = secondPoint;
-        upperPoint = thirdPoint;
-        sidePoint = firstPoint;
-      }
-      else if (FirstAndThirdLinedUpY)
-      {
-        centrePoint = thirdPoint;
-        upperPoint = secondPoint;
-        sidePoint = firstPoint;
-      }
-      else
-      {
-        throw std::logic_error("BAD POINTS");
-      }
+      rect_.pos_ = pointC;
+      rect_.width_ = std::fmax(std::abs(pointA.x_ - pointC.x_) * 2, std::abs(pointB.x_ - pointC.x_) * 2);
+      rect_.height_ = std::fmax(std::abs(pointA.y_ - pointC.y_) * 2, std::abs(pointB.y_ - pointC.y_) * 2);
     }
     else
     {
       throw std::logic_error("BAD POINTS");
     }
-
-    rect_.width_ = std::abs(sidePoint.x_ - centrePoint.x_) * 2;
-    rect_.height_ = std::abs(upperPoint.y_ - centrePoint.y_) * 2;
-    rect_.pos_.x_ = centrePoint.x_;
-    rect_.pos_.y_ = centrePoint.y_;
   }
 
   double Diamond::getArea() const

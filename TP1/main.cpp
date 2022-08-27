@@ -52,23 +52,18 @@ int main()
         std::cin >> pointX >> pointY >> coef;
         if (coef <= 0.0)
         {
-          std::cerr << "INVALID SCALE" << "\n";
-          return 1;
+          throw std::range_error("INVALID SCALE");
         }
         if (!std::cin || shapesCount == 0)
         {
-          std::cerr << "SCALE ERROR" << "\n";
-          return 1;
+          throw std::logic_error("SCALE ERROR");
         }
-        else
+        printShapes(shapes, shapesCount);
+        for (std::size_t i = 0; i < shapesCount; i++)
         {
-          printShapes(shapes, shapesCount);
-          for (std::size_t i = 0; i < shapesCount; i++)
-          {
-            scaleShapes(shapes[i], coef, pointX, pointY);
-          }
-          printShapes(shapes, shapesCount);
+          scaleShapes(shapes[i], coef, pointX, pointY);
         }
+        printShapes(shapes, shapesCount);
         break;
       }
     }
@@ -79,6 +74,11 @@ int main()
       if (temp == "INVALID SIDE")
       {
         correctnessCheck = false;
+        continue;
+      }
+      else if (temp == "INVALID SCALE" || "SCALE ERROR")
+      {
+        return 1;
       }
     }
   }
