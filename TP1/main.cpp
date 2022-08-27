@@ -15,9 +15,8 @@ int main()
   std::string str;
   std::shared_ptr< double[] > doubles;
   shapeArr_t shapes;
-  std::size_t shapesCount = 0;
+  size_t shapesCount = 0;
   bool scaleCheck = false;
-  bool correctnessCheck = true;
   while (std::cin >> str)
   {
     try
@@ -27,13 +26,15 @@ int main()
         doubles = enterPoints(4);
         point_t leftCorner = { doubles[0], doubles[1] };
         point_t rightCorner = { doubles[2], doubles[3] };
-        addShape(shapes, shapePtr_t(new Rectangle(leftCorner, rightCorner)), shapesCount++);
+        addShape(shapes, shapePtr_t(new Rectangle(leftCorner, rightCorner)), shapesCount);
+        ++shapesCount;
       }
       else if (str == "SQUARE")
       {
         doubles = enterPoints(3);
         point_t leftCorner = { doubles[0], doubles[1] };
-        addShape(shapes, shapePtr_t(new Square(leftCorner, doubles[2])), shapesCount++);
+        addShape(shapes, shapePtr_t(new Square(leftCorner, doubles[2])), shapesCount);
+        ++shapesCount;
       }
       else if (str == "DIAMOND")
       {
@@ -41,7 +42,8 @@ int main()
         point_t firstPoint = { doubles[0], doubles[1] };
         point_t secondPoint = { doubles[2], doubles[3] };
         point_t thirdPoint = { doubles[4], doubles[5] };
-        addShape(shapes, shapePtr_t(new Diamond(firstPoint, secondPoint, thirdPoint)), shapesCount++);
+        addShape(shapes, shapePtr_t(new Diamond(firstPoint, secondPoint, thirdPoint)), shapesCount);
+        ++shapesCount;
       }
       else if (str == "SCALE")
       {
@@ -71,12 +73,7 @@ int main()
     {
       std::string temp = exception.what();
       std::cerr << temp << "\n";
-      if (temp == "INVALID SIDE")
-      {
-        correctnessCheck = false;
-        continue;
-      }
-      else if (temp == "INVALID SCALE" || "SCALE ERROR")
+      if (temp == "INVALID SCALE" || temp == "SCALE ERROR")
       {
         return 1;
       }
@@ -85,10 +82,6 @@ int main()
   if (scaleCheck == false)
   {
     std::cerr << "THERE IS NOT SCALE" << "\n";
-    return 1;
-  }
-  if (correctnessCheck == false)
-  {
     return 1;
   }
 

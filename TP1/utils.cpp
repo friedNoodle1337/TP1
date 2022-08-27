@@ -5,11 +5,11 @@
 
 namespace savranenko
 {
-  void addDouble(std::shared_ptr< double[] >& doubles, double element, std::size_t count)
+  void addDouble(std::shared_ptr< double[] >& doubles, double element, size_t count)
   {
     std::shared_ptr< double[] > newArr = std::shared_ptr< double[] >(new double[count + 1]);
 
-    for (std::size_t i = 0; i < count; i++)
+    for (size_t i = 0; i < count; i++)
     {
       newArr[i] = doubles[i];
     }
@@ -18,11 +18,11 @@ namespace savranenko
     doubles = newArr;
   }
 
-  void addShape(shapeArr_t& shapes, shapePtr_t shape, std::size_t count)
+  void addShape(shapeArr_t& shapes, shapePtr_t shape, size_t count)
   {
     shapeArr_t newArr = shapeArr_t(new shapePtr_t[count + 1]);
 
-    for (std::size_t i = 0; i < count; i++)
+    for (size_t i = 0; i < count; i++)
     {
       newArr[i] = shapes[i];
     }
@@ -31,7 +31,7 @@ namespace savranenko
     shapes= newArr;
   }
 
-  std::shared_ptr< double[] > enterPoints(std::size_t nDoubles)
+  std::shared_ptr< double[] > enterPoints(size_t nDoubles)
   {
     std::string stringOfDoubles;
     std::getline(std::cin, stringOfDoubles, '\n');
@@ -39,7 +39,7 @@ namespace savranenko
     int start = 1;
     int end = 0;
     std::shared_ptr< double[] > doubles;
-    for (std::size_t i = 0; i < nDoubles; i++)
+    for (size_t i = 0; i < nDoubles; i++)
     {
       end = stringOfDoubles.find(' ', start);
       if (start != 0 && end != 0)
@@ -57,10 +57,10 @@ namespace savranenko
     return doubles;
   }
 
-  void printShapes(const shapeArr_t& shapes, std::size_t count)
+  void printShapes(shapeArr_t& shapes, size_t count)
   {
     double sumArea = 0;
-    for (std::size_t i = 0; i < count; i++)
+    for (size_t i = 0; i < count; i++)
     {
       sumArea += shapes[i]->getArea();
     }
@@ -68,7 +68,7 @@ namespace savranenko
 
     rectangle_t frame;
     point_t leftCorner, rightCorner;
-    for (std::size_t i = 0; i < count; i++)
+    for (size_t i = 0; i < count; i++)
     {
       frame = shapes[i]->getFrameRect();
       leftCorner = { frame.pos_.x_ - frame.width_ / 2, frame.pos_.y_ - frame.height_ / 2 };
@@ -82,7 +82,7 @@ namespace savranenko
     }
   }
 
-  void scaleShapes(const shapePtr_t& shape, double coef, double pointX, double pointY)
+  void scaleShapes(shapePtr_t& shape, double coef, double pointX, double pointY)
   {
     shape->scale(coef);
     rectangle_t frame = shape->getFrameRect();
